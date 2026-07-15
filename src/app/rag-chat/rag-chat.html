@@ -3,6 +3,11 @@
     <div class="rag-chat__heading">
       <h1>Cloud Ops Assistant</h1>
       <p>Ask about your AWS resources or the team's runbooks.</p>
+      <p class="rag-chat__credit">
+        Built by
+        <a href="https://www.linkedin.com/in/suryasaladia3/" target="_blank" rel="noopener">Surya Saladi</a>
+        · <a href="https://github.com/suryasaladi/Agentic-Rag-AwsAssistant" target="_blank" rel="noopener">GitHub</a>
+      </p>
     </div>
     <div class="rag-chat__identity">
       @if (session(); as s) {
@@ -18,7 +23,7 @@
            [class.msg--assistant]="msg.role === 'assistant'"
            [class.msg--error]="msg.error">
         <div class="msg__bubble">
-          <p class="msg__text">{{ msg.text }}</p>
+          <p class="msg__text" [innerHTML]="msg.text | linkify"></p>
 
           @if (msg.citations?.length) {
             <details class="citations">

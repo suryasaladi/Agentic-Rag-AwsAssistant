@@ -72,6 +72,22 @@
       cursor: not-allowed;
     }
   }
+
+  &__credit {
+    margin: 0.35rem 0 0;
+    text-align: center;
+    font-size: 0.76rem;
+    color: var(--muted);
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .field {

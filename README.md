@@ -16,6 +16,8 @@ conversation, and can **diagnose** (fuse live state + runbooks) and **act**
 (EC2 start/stop/reboot, confirmation-gated). Angular front end, Python **FastAPI**
 backend, **Groq** LLM, **Pinecone** retrieval.
 
+**Built by [Surya Saladi](https://github.com/suryasaladi).**
+
 ## Architecture
 
 ```

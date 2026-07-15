@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { Citation, RagChatService } from './rag-chat.service';
+import { LinkifyPipe } from './linkify.pipe';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
@@ -13,7 +14,7 @@ interface ChatMessage {
 
 @Component({
   selector: 'app-rag-chat',
-  imports: [FormsModule],
+  imports: [FormsModule, LinkifyPipe],
   templateUrl: './rag-chat.html',
   styleUrl: './rag-chat.scss'
 })
