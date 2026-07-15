@@ -1,0 +1,255 @@
+:host {
+  --bg: #0f1117;
+  --panel: #171a23;
+  --border: #262b38;
+  --text: #e7e9ee;
+  --muted: #9aa1b1;
+  --accent: #4f7cff;
+  --user-bubble: #2b3a67;
+  --assistant-bubble: #1e2430;
+  --error: #ff6b6b;
+
+  display: flex;
+  justify-content: center;
+  height: 100dvh;
+  padding: 1rem;
+  box-sizing: border-box;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.rag-chat {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 720px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+
+    h1 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0.25rem 0 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+  }
+
+  &__identity {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+  }
+
+  &__role {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  &__signout {
+    padding: 0.4rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text);
+    font-size: 0.78rem;
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--accent);
+    }
+  }
+
+  &__log {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  &__empty {
+    margin: auto;
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  &__composer {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+
+  &__input {
+    flex: 1;
+    padding: 0.7rem 0.9rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 0.92rem;
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+    }
+  }
+
+  &__send {
+    padding: 0.7rem 1.1rem;
+    border: 0;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.msg {
+  display: flex;
+
+  &--user {
+    justify-content: flex-end;
+  }
+
+  &--assistant {
+    justify-content: flex-start;
+  }
+
+  &__bubble {
+    max-width: 82%;
+    padding: 0.7rem 0.9rem;
+    border-radius: 14px;
+    background: var(--assistant-bubble);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  &--user &__bubble {
+    background: var(--user-bubble);
+  }
+
+  &--error &__bubble {
+    border: 1px solid var(--error);
+  }
+
+  &__text {
+    margin: 0;
+    white-space: pre-wrap;
+  }
+}
+
+.citations {
+  margin-top: 0.6rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.5rem;
+
+  summary {
+    cursor: pointer;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  ul {
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+}
+
+.citation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.78rem;
+
+  &__source {
+    font-weight: 600;
+  }
+
+  &__snippet {
+    color: var(--muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__link {
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.typing {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+
+  span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--muted);
+    animation: blink 1.2s infinite ease-in-out both;
+
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+  }
+}
+
+@keyframes blink {
+  0%, 80%, 100% {
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 1;
+  }
+}

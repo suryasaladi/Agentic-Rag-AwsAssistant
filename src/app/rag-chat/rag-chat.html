@@ -1,0 +1,77 @@
+<section class="rag-chat">
+  <header class="rag-chat__header">
+    <div class="rag-chat__heading">
+      <h1>Cloud Ops Assistant</h1>
+      <p>Ask about your AWS resources or the team's runbooks.</p>
+    </div>
+    <div class="rag-chat__identity">
+      @if (session(); as s) {
+        <span class="rag-chat__role" [title]="s.identityArn">{{ s.identityArn }}</span>
+      }
+      <button class="rag-chat__signout" type="button" (click)="logout()">Sign out</button>
+    </div>
+  </header>
+
+  <div class="rag-chat__log" role="log" aria-live="polite">
+    @for (msg of messages(); track $index) {
+      <div class="msg" [class.msg--user]="msg.role === 'user'"
+           [class.msg--assistant]="msg.role === 'assistant'"
+           [class.msg--error]="msg.error">
+        <div class="msg__bubble">
+          <p class="msg__text">{{ msg.text }}</p>
+
+          @if (msg.citations?.length) {
+            <details class="citations">
+              <summary>{{ msg.citations!.length }} source{{ msg.citations!.length === 1 ? '' : 's' }}</summary>
+              <ul>
+                @for (c of msg.citations; track $index) {
+                  <li class="citation">
+                    @if (c.source) {
+                      <span class="citation__source">{{ c.source }}</span>
+                    }
+                    <span class="citation__snippet">{{ c.text }}</span>
+                    @if (c.uri) {
+                      <a class="citation__link" [href]="c.uri" target="_blank" rel="noopener">{{ c.uri }}</a>
+                    }
+                  </li>
+                }
+              </ul>
+            </details>
+          }
+        </div>
+      </div>
+    } @empty {
+      <div class="rag-chat__empty">
+        <p>Try: “What's the rollback procedure for a failed deploy?”</p>
+      </div>
+    }
+
+    @if (loading()) {
+      <div class="msg msg--assistant">
+        <div class="msg__bubble">
+          <span class="typing" aria-label="Assistant is typing">
+            <span></span><span></span><span></span>
+          </span>
+        </div>
+      </div>
+    }
+
+    <div #scrollAnchor></div>
+  </div>
+
+  <form class="rag-chat__composer" (ngSubmit)="send()">
+    <input
+      class="rag-chat__input"
+      type="text"
+      name="question"
+      placeholder="Ask a question…"
+      autocomplete="off"
+      [ngModel]="draft()"
+      (ngModelChange)="draft.set($event)"
+      [disabled]="loading()"
+    />
+    <button class="rag-chat__send" type="submit" [disabled]="loading() || !draft().trim()">
+      Send
+    </button>
+  </form>
+</section>

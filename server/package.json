@@ -1,0 +1,19 @@
+{
+  "name": "rag-system-server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Express backend for the Angular RAG widget: local embeddings retrieval + Groq generation.",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "ingest": "node ingest.js"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^3.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "groq-sdk": "^0.9.0"
+  }
+}

@@ -1,0 +1,54 @@
+<section class="login">
+  <form class="login__card" (ngSubmit)="submit()">
+    <header class="login__header">
+      <h1>Connect your AWS account</h1>
+      <p>The assistant runs read-only AWS queries as this identity. Credentials are held only
+         in the server's memory for your session — never written to disk. Prefer short-lived
+         (STS) keys or a role to assume.</p>
+    </header>
+
+    <label class="field">
+      <span>Region</span>
+      <input type="text" name="region" autocomplete="off" required
+             [(ngModel)]="model.region" placeholder="us-east-1" />
+    </label>
+
+    <label class="field">
+      <span>Access Key ID</span>
+      <input type="text" name="accessKeyId" autocomplete="off" spellcheck="false" required
+             [(ngModel)]="model.accessKeyId" placeholder="AKIA…" />
+    </label>
+
+    <label class="field">
+      <span>Secret Access Key</span>
+      <input type="password" name="secretAccessKey" autocomplete="off" required
+             [(ngModel)]="model.secretAccessKey" placeholder="••••••••" />
+    </label>
+
+    <label class="field">
+      <span>Session Token <em>(optional — for temporary/STS creds)</em></span>
+      <input type="password" name="sessionToken" autocomplete="off"
+             [(ngModel)]="model.sessionToken" placeholder="Leave blank for long-term IAM keys" />
+    </label>
+
+    <label class="field">
+      <span>Role ARN to assume <em>(optional)</em></span>
+      <input type="text" name="roleArn" autocomplete="off" spellcheck="false"
+             [(ngModel)]="model.roleArn" placeholder="arn:aws:iam::123456789012:role/…" />
+    </label>
+
+    <label class="field">
+      <span>External ID <em>(optional)</em></span>
+      <input type="text" name="externalId" autocomplete="off" spellcheck="false"
+             [(ngModel)]="model.externalId" placeholder="Only if the role's trust policy requires it" />
+    </label>
+
+    @if (error()) {
+      <p class="login__error" role="alert">{{ error() }}</p>
+    }
+
+    <button class="login__submit" type="submit" [disabled]="loading()">
+      {{ loading() ? 'Connecting…' : 'Connect AWS' }}
+    </button>
+  </form>
+</section>

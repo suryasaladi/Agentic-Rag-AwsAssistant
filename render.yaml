@@ -1,0 +1,25 @@
+# Render Blueprint — deploys the single Docker service (FastAPI + built Angular).
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: cloud-ops-assistant
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: PINECONE_INDEX
+        value: rag-poc
+      - key: PINECONE_EMBED_MODEL
+        value: multilingual-e5-large
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+      - key: TOP_K
+        value: "5"
+      - key: ALLOW_MUTATIONS
+        value: "false"
+      # Secrets — set these in the Render dashboard (sync:false = not stored in the repo).
+      - key: GROQ_API_KEY
+        sync: false
+      - key: PINECONE_API_KEY
+        sync: false

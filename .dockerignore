@@ -1,0 +1,12 @@
+node_modules
+dist
+.angular
+backend/.venv
+backend/__pycache__
+backend/.env
+backend/index.json
+**/__pycache__
+**/*.pyc
+.git
+.vscode
+server

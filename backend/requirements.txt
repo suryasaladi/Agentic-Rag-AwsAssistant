@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+boto3
+pinecone
+langchain-text-splitters
+langchain-groq
