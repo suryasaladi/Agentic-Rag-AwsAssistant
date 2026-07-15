@@ -3,5 +3,7 @@ uvicorn[standard]
 python-dotenv
 boto3
 pinecone
+langchain-core
 langchain-text-splitters
 langchain-groq
+langgraph>=1.2,<2
