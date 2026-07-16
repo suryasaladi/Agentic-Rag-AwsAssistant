@@ -1,11 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService, AwsCredentialsInput } from './auth.service';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
@@ -16,13 +16,10 @@ export class LoginComponent {
   protected readonly loading = signal(false);
   protected readonly error = signal<string | null>(null);
 
-  protected readonly model: AwsCredentialsInput = {
+  protected readonly model = {
     region: 'us-east-1',
     accessKeyId: '',
-    secretAccessKey: '',
-    sessionToken: '',
-    roleArn: '',
-    externalId: ''
+    secretAccessKey: ''
   };
 
   submit(): void {
@@ -32,17 +29,10 @@ export class LoginComponent {
     this.error.set(null);
     this.loading.set(true);
 
-    const roleArn = this.model.roleArn?.trim();
-    const sessionToken = this.model.sessionToken?.trim();
-    const externalId = this.model.externalId?.trim();
-
     const payload: AwsCredentialsInput = {
       region: this.model.region.trim(),
       accessKeyId: this.model.accessKeyId.trim(),
-      secretAccessKey: this.model.secretAccessKey.trim(),
-      ...(roleArn ? { roleArn } : {}),
-      ...(sessionToken ? { sessionToken } : {}),
-      ...(externalId ? { externalId } : {})
+      secretAccessKey: this.model.secretAccessKey.trim()
     };
 
     this.auth.login(payload).subscribe({

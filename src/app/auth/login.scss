@@ -32,6 +32,18 @@
     padding: 1.5rem;
   }
 
+  &__back {
+    display: inline-block;
+    margin-bottom: 0.6rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--text);
+    }
+  }
+
   &__header {
     h1 {
       margin: 0;

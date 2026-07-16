@@ -1,0 +1,139 @@
+:host {
+  --bg: #0f1117;
+  --panel: #171a23;
+  --border: #262b38;
+  --text: #e7e9ee;
+  --muted: #9aa1b1;
+  --accent: #4f7cff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.welcome {
+  width: 100%;
+  max-width: 560px;
+
+  &__card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+
+  &__hero {
+    text-align: center;
+  }
+
+  &__emoji {
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  &__hero h1 {
+    margin: 0.5rem 0 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  &__tagline {
+    margin: 0.6rem 0 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  &__features {
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+
+    li {
+      position: relative;
+      padding-left: 1.3rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.5;
+
+      &::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+      }
+
+      strong {
+        color: var(--text);
+      }
+    }
+  }
+
+  &__why {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(79, 124, 255, 0.05);
+
+    h2 {
+      margin: 0 0 0.4rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+
+      strong {
+        color: var(--text);
+      }
+    }
+  }
+
+  &__cta {
+    display: block;
+    margin-top: 1.5rem;
+    padding: 0.85rem;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.98rem;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: #3f6ae8;
+    }
+  }
+
+  &__credit {
+    margin: 1.2rem 0 0;
+    text-align: center;
+    font-size: 0.76rem;
+    color: var(--muted);
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+<section class="welcome">
+  <div class="welcome__card">
+    <div class="welcome__hero">
+      <div class="welcome__emoji">☁️</div>
+      <h1>Cloud Ops Assistant</h1>
+      <p class="welcome__tagline">
+        Chat with your live AWS account and your team's runbooks — ask what's running,
+        check health, look up procedures, and safely start or stop resources.
+      </p>
+    </div>
+
+    <ul class="welcome__features">
+      <li><strong>See your resources</strong> — "What EC2 instances do I have?", "List my S3 buckets."</li>
+      <li><strong>Diagnose health</strong> — "Is anything unhealthy?" — it checks live status and alarms.</li>
+      <li><strong>Search runbooks</strong> — "What's the rollback procedure for a failed deploy?"</li>
+      <li><strong>Take actions</strong> — start / stop / reboot EC2, always with a confirmation step.</li>
+    </ul>
+
+    <div class="welcome__why">
+      <h2>Why an AWS Access Key &amp; Secret?</h2>
+      <p>
+        To read your resources and act on your behalf, the assistant needs AWS credentials
+        for <strong>your</strong> account. They're used only for your session, kept in the
+        server's memory, and <strong>never written to disk</strong>. Use a least-privilege or
+        short-lived key, and sign out any time.
+      </p>
+    </div>
+
+    <a class="welcome__cta" routerLink="/login">Connect your AWS account →</a>
+
+    <p class="welcome__credit">
+      Built by
+      <a href="https://www.linkedin.com/in/suryasaladia3/" target="_blank" rel="noopener">Surya Saladi</a>
+      · <a href="https://github.com/suryasaladi/Agentic-Rag-AwsAssistant" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </div>
+</section>
