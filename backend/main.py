@@ -127,6 +127,26 @@ def _groq():
     return _llm
 
 
+# Optional open-source observability (Langfuse). Tracing activates only when the
+# LANGFUSE_* keys are set, so it never affects local/dev runs that don't use it.
+_lf_handler = None
+_lf_checked = False
+
+
+def _langfuse_callbacks():
+    global _lf_handler, _lf_checked
+    if not _lf_checked:
+        _lf_checked = True
+        if os.environ.get("LANGFUSE_PUBLIC_KEY") and os.environ.get("LANGFUSE_SECRET_KEY"):
+            try:
+                from langfuse.langchain import CallbackHandler
+                _lf_handler = CallbackHandler()
+                print("[observability] Langfuse tracing enabled")
+            except Exception as e:  # noqa: BLE001
+                print(f"[observability] Langfuse disabled: {e}")
+    return [_lf_handler] if _lf_handler else []
+
+
 def pinecone_retrieve(query: str, k: int):
     pc, index = _pinecone()
     emb = pc.inference.embed(model=EMBED_MODEL, inputs=[query], parameters={"input_type": "query"})
@@ -307,7 +327,12 @@ def chat(body: ChatIn, x_auth_session: str | None = Header(default=None)):
         tools = build_tools(session["boto"], session["region"], search_runbooks_fn, allow_mutations=ALLOW_MUTATIONS)
         agent = create_react_agent(_groq(), tools, prompt=SYSTEM_PROMPT, checkpointer=_memory)
         # thread_id = the user's auth session → the agent remembers prior turns.
-        config = {"configurable": {"thread_id": x_auth_session}, "recursion_limit": 2 * MAX_TOOL_LOOPS}
+        # callbacks → Langfuse tracing when configured (each tool call + LLM call is traced).
+        config = {
+            "configurable": {"thread_id": x_auth_session},
+            "recursion_limit": 2 * MAX_TOOL_LOOPS,
+            "callbacks": _langfuse_callbacks(),
+        }
 
         # Only resume if the graph is genuinely paused awaiting an action confirmation
         # (a confirm_action interrupt) — NOT merely a thread left pending by a prior

@@ -1,0 +1,8 @@
+# Optional RAGAS-based evaluation. Separate from the app's runtime deps.
+# NOTE: RAGAS pulls deps (e.g. scikit-network) that have no Python 3.14 wheel,
+# so run this on Python 3.12 or 3.13:
+#   python3.12 -m venv .venv-eval
+#   .venv-eval/Scripts/pip install -r requirements-eval.txt
+#   .venv-eval/Scripts/python eval_ragas.py
+ragas>=0.2,<0.3
+langchain-groq
