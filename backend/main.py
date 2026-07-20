@@ -139,9 +139,12 @@ def _langfuse_callbacks():
         _lf_checked = True
         if os.environ.get("LANGFUSE_PUBLIC_KEY") and os.environ.get("LANGFUSE_SECRET_KEY"):
             try:
+                from langfuse import get_client
                 from langfuse.langchain import CallbackHandler
+                ok = get_client().auth_check()  # verifies keys+host against Langfuse
                 _lf_handler = CallbackHandler()
-                print("[observability] Langfuse tracing enabled")
+                print(f"[observability] Langfuse tracing enabled (auth_check={ok}, "
+                      f"host={os.environ.get('LANGFUSE_HOST', 'default-eu')})")
             except Exception as e:  # noqa: BLE001
                 print(f"[observability] Langfuse disabled: {e}")
     return [_lf_handler] if _lf_handler else []
