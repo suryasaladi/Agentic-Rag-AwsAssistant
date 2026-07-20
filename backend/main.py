@@ -267,6 +267,13 @@ def health():
         "index": PINECONE_INDEX,
         "sessions": len(_sessions),
         "configured": bool(os.environ.get("GROQ_API_KEY") and os.environ.get("PINECONE_API_KEY")),
+        "tracing": {
+            # env vars present in THIS container? (proves Render passed them in)
+            "configured": bool(os.environ.get("LANGFUSE_PUBLIC_KEY") and os.environ.get("LANGFUSE_SECRET_KEY")),
+            "host": os.environ.get("LANGFUSE_HOST", "https://cloud.langfuse.com (default)"),
+            # handler built yet? (happens on first chat once configured)
+            "active": _lf_handler is not None,
+        },
     }
 
 
